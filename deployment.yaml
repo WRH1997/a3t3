@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment2
+spec:
+  selector:
+    matchLabels:
+      app: my-app2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-app2
+        env: development
+    spec:
+      containers:
+      - name: my-app2
+        image: gcr.io/b00919848-cloud/github.com/wrh1997/a3t3:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service2
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+  selector:
+    app: my-app

@@ -12,8 +12,9 @@ app.use(parser.urlencoded({
 app.use(parser.json());
 
 
-app.get('/incoming', (req, res) => {
+app.post('/incoming', (req, res) => {
   let ip1 = ip.address();
+  console.log(req);
   res.json({'data':'incoming', "req":req.body, "ip":ip1});
 })
 
@@ -22,5 +23,5 @@ const port = 5000;
 
 //https://expressjs.com/en/starter/hello-world.html
 app.listen(port, () => {
-console.log(`Server 1 started on ${port}`)
+  console.log(`Server 2 started on ${ip.address()}:${port}`)
 })
