@@ -12,11 +12,26 @@ app.use(parser.urlencoded({
 app.use(parser.json());
 
 
-app.post('/incoming', (req, res) => {
-  let ip1 = ip.address();
-  console.log(req);
-  res.json({'data':'incoming', "req":req.body, "ip":ip1});
+app.post('/test', (req, res) => {
+  let filePath = "/waleed_PV_dir/" + req.body['file'];
+  let contents = null;
+  let exists = fileExists(filePath);
+  if(exists){
+    contents = fs.readFileSync(filePath, 'utf-8');
+  }
+  res.json({"exists?2:":exists, "contents2":contents});
+  //res.json({'data':'incoming', "req":req.body, "ip":ip1});
 })
+
+
+function fileExists(filePath){
+  if(fs.existsSync(filePath)){
+      return true;
+  }
+  else{
+      return false;
+  }
+}
 
 
 const port = 5000;
