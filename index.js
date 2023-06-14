@@ -24,6 +24,17 @@ app.post('/test', (req, res) => {
 })
 
 
+app.post("/getSum", (req, res) => {
+  var file = req.body['file'];
+  var product = req.body['prod'];
+  if(product==''){
+    product = null;
+  }
+  var prodSum = sum(file, product);
+  res.json({"file": req.body['file'], "sum": prodSum});
+})
+
+
 function fileExists(filePath){
   if(fs.existsSync(filePath)){
       return true;
@@ -32,6 +43,30 @@ function fileExists(filePath){
       return false;
   }
 }
+
+
+function sum(file, product){
+  var sum = 0;
+  var filePath = '/waleed_PV_dir/' + file;
+  var content = fs.readFileSync(filePath, 'utf-8');
+  var lines = content.split("\n");
+  if(product==null){
+      return 0;
+  }
+  for(var x=0; x<lines.length; x++){
+      if(x==0){
+          continue;
+      }
+      else{
+          var vals = lines[x].trim().split(",");
+          if(vals[0].toLowerCase()==product.toLowerCase()){
+              sum += Number(vals[1]);
+          }
+      }
+  }
+  return sum;
+}
+
 
 
 const port = 5000;
