@@ -31,7 +31,7 @@ app.post("/getSum", (req, res) => {
     product = null;
   }
   var prodSum = sum(file, product);
-  res.json({"file": req.body['file'], "sum": prodSum});
+  res.json({"file": req.body['file'], "sum": prodSum.toString()});
 })
 
 
