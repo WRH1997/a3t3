@@ -1,3 +1,10 @@
+/*
+CITATION NOTE: The following code, which constitutes container 1 server, was adapted from my Assignment 1
+submission (since the A3's instructions allowed for the re-use of A1's code). However, the necessary modifications have been made.
+The original code being referenced can be found at the following URL.
+URL: https://git.cs.dal.ca/courses/2023-summer/csci4145-5409/alhindi/-/tree/main/A1/Container2
+*/
+
 const express = require('express');
 const app = express();
 const ip = require('ip')
@@ -6,10 +13,12 @@ const fs = require('fs');
 const axios = require('axios');
 var path = require('path');
 
+
 app.use(parser.urlencoded({
   extended: true,
 }))
 app.use(parser.json());
+
 
 
 app.post('/test', (req, res) => {
@@ -20,8 +29,8 @@ app.post('/test', (req, res) => {
     contents = fs.readFileSync(filePath, 'utf-8');
   }
   res.json({"exists?2:":exists, "contents2":contents});
-  //res.json({'data':'incoming', "req":req.body, "ip":ip1});
 })
+
 
 
 app.post("/getSum", (req, res) => {
@@ -33,6 +42,7 @@ app.post("/getSum", (req, res) => {
   var prodSum = sum(file, product);
   res.json({"file": req.body['file'], "sum": prodSum.toString()});
 })
+
 
 
 function fileExists(filePath){
@@ -71,7 +81,6 @@ function sum(file, product){
 
 const port = 5000;
 
-//https://expressjs.com/en/starter/hello-world.html
 app.listen(port, () => {
   console.log(`Server 2 started on ${ip.address()}:${port}`)
 })
